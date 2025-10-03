@@ -43,3 +43,14 @@ def tm_right(kf, lam, nf, ns, nc):
     r = kf * ((nf ** 2 / ns ** 2) * gamma_s + (nf ** 2 / nc ** 2) * gamma_c)
     r /= tm_denominator(kf, lam, nf, ns, nc)
     return r
+
+
+def te_amplitude(x, kf, lam, nf, ns, nc, h):
+    gamma_s = gamma(kf, lam, nf, ns)
+    gamma_c = gamma(kf, lam, nf, nc)
+    E_c = np.exp(-gamma_c * x)
+    E_f = np.cos(kf * x) - gamma_c / kf * np.sin(kf * x)
+    E_s = (np.cos(kf * h) + gamma_c / kf * np.sin(kf * h)) * np.exp(gamma_s * (x + h))
+    E = np.where(x > 0, E_c, E_f)
+    E = np.where(x > -h, E, E_s)
+    return E
