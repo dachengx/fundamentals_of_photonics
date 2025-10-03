@@ -17,15 +17,29 @@ def gamma(kf, lam, nf, n):
     return (beta(kf, lam, nf) ** 2 - (k0(lam) * n) ** 2) ** 0.5
 
 
-def denominator(kf, lam, nf, ns, nc):
+def te_denominator(kf, lam, nf, ns, nc):
+    gamma_s = gamma(kf, lam, nf, ns)
+    gamma_c = gamma(kf, lam, nf, nc)
+    return kf * (1 - gamma_s * gamma_c / kf ** 2)
+
+
+def tm_denominator(kf, lam, nf, ns, nc):
     gamma_s = gamma(kf, lam, nf, ns)
     gamma_c = gamma(kf, lam, nf, nc)
     return kf ** 2 - nf ** 4 / ns ** 2 / nc ** 2 * gamma_s * gamma_c
 
 
-def right(kf, lam, nf, ns, nc):
+def te_right(kf, lam, nf, ns, nc):
+    gamma_s = gamma(kf, lam, nf, ns)
+    gamma_c = gamma(kf, lam, nf, nc)
+    r = gamma_s + gamma_c
+    r /= te_denominator(kf, lam, nf, ns, nc)
+    return r
+
+
+def tm_right(kf, lam, nf, ns, nc):
     gamma_s = gamma(kf, lam, nf, ns)
     gamma_c = gamma(kf, lam, nf, nc)
     r = kf * ((nf ** 2 / ns ** 2) * gamma_s + (nf ** 2 / nc ** 2) * gamma_c)
-    r /= denominator(kf, lam, nf, ns, nc)
+    r /= tm_denominator(kf, lam, nf, ns, nc)
     return r
