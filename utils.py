@@ -56,6 +56,7 @@ def te_amplitude(x, kf, lam, nf, ns, nc, h):
     return E
 
 
+# https://www.overleaf.com/project/68e115b428ec5e0666550028
 def tm_amplitude(x, kf, lam, nf, ns, nc, h):
     gamma_s = gamma(kf, lam, nf, ns)
     gamma_c = gamma(kf, lam, nf, nc)
