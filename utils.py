@@ -66,3 +66,11 @@ def tm_amplitude(x, kf, lam, nf, ns, nc, h):
     E = np.where(x > 0, E_c, E_f)
     E = np.where(x > -h, E, E_s)
     return E
+
+
+def te_phi(theta, n1, n2):
+    return np.arctan(-(n1 ** 2 * np.sin(theta) ** 2 - n2 ** 2) ** 0.5 / (n1 * np.cos(theta)))
+
+
+def tm_phi(theta, n1, n2):
+    return np.arctan(-n1 ** 2 / n2 ** 2 * (n1 ** 2 * np.sin(theta) ** 2 - n2 ** 2) ** 0.5 / (n1 * np.cos(theta)))
