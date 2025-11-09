@@ -68,9 +68,26 @@ def tm_amplitude(x, kf, lam, nf, ns, nc, h):
     return E
 
 
+# Eps. 3.32 has wrong sign of phase shift
 def te_phi(theta, n1, n2):
     return np.arctan(-(n1 ** 2 * np.sin(theta) ** 2 - n2 ** 2) ** 0.5 / (n1 * np.cos(theta)))
 
 
 def tm_phi(theta, n1, n2):
     return np.arctan(-n1 ** 2 / n2 ** 2 * (n1 ** 2 * np.sin(theta) ** 2 - n2 ** 2) ** 0.5 / (n1 * np.cos(theta)))
+
+
+def a(nf, ns, nc):
+    return (ns ** 2 - nc ** 2) / (nf ** 2 - ns ** 2)
+
+
+def V(nu, a, b, nf, ns, nc, te=True):
+    V = nu * np.pi
+    if te:
+        V += np.arctan((b / (1 - b)) ** 0.5)
+        V += np.arctan(((b + a) / (1 - b)) ** 0.5)
+    else:
+        V += np.arctan(nf ** 2 / ns ** 2 * (b / (1 - b)) ** 0.5)
+        V += np.arctan(nf ** 2 / nc ** 2 * ((b + a) / (1 - b)) ** 0.5)
+    V /= (1 - b) ** 0.5
+    return V
