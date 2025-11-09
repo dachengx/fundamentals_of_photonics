@@ -64,16 +64,15 @@ def plot_kf(lam, nf, ns, nc, h, te=True, ylim=[-10, 10]):
 
 def plot_V(lam, nf, ns, nc, h, te=True, numax=3, xlim=[0, 20]):
     b = np.linspace(0, 1, 10001)
-
     # b = (neff ** 2 - ns ** 2) / (nf ** 2 - ns ** 2)
-    
+
     fig, ax = plt.subplots(1, 1, figsize=(4, 3))
-    
+
     V_lam = k0(lam) * h * (nf ** 2 - ns ** 2) ** 0.5
     ax.axvline(V_lam, linestyle='dashed', color=xps.colors['grey'])
-    
+
     atol = 1e-6
-    
+
     roots = []
     a_t = a(nf, ns, nc)
     for nu in range(0, numax + 1):
@@ -91,9 +90,9 @@ def plot_V(lam, nf, ns, nc, h, te=True, numax=3, xlim=[0, 20]):
 
     ax.set_xlim(*xlim)
     ax.set_ylim(0, 1)
-    
+
     ax.set_xlabel('$V$')
     ax.set_ylabel('$b$')
-    
+
     plt.show()
     return roots
